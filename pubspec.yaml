@@ -31,6 +31,12 @@ dependencies:
     sdk: flutter
 
   # ------------------------------------------------------------
+  # Global UI
+  # ------------------------------------------------------------
+  # svg images
+  flutter_svg: ^1.0.3
+
+  # ------------------------------------------------------------
   # Global Functionality
   # ------------------------------------------------------------
   # State management
@@ -69,8 +75,10 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
-assets:
+  assets:
     - fonts/
+    - assets/
+    - assets/images/auth/
 
 fonts: 
     - family: Poppins
