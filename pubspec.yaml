@@ -45,6 +45,10 @@ dependencies:
   formz: ^0.4.1
   # Internet Connection
   connectivity_plus: ^2.2.1
+  # Equality
+  equatable: ^2.0.3
+  # Caching
+  shared_preferences: ^2.0.13
 
   # ------------------------------------------------------------
   # Firebase Integration
@@ -55,6 +59,7 @@ dependencies:
   cloud_firestore: ^3.1.11
   # Firebase Cors
   firebase_core: ^1.14.0
+  google_sign_in: ^5.2.4
 
 dev_dependencies:
   flutter_test:
