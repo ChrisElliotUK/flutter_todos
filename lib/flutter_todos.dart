@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_todos/common/routes/route_generator.dart';
+import 'package:flutter_todos/common/routes/route_names.dart';
 import 'package:flutter_todos/common/theme/app_theme.dart';
 import 'package:flutter_todos/features/auth/bloc/auth_bloc/auth_bloc.dart';
 import 'package:flutter_todos/features/auth/repository/auth_repository.dart';
-import 'package:flutter_todos/features/auth/screens/auth_screen.dart';
+import 'package:flutter_todos/features/auth/screens/login_screen.dart';
 
 class FlutterTodos extends StatelessWidget {
   const FlutterTodos({
@@ -19,15 +21,26 @@ class FlutterTodos extends StatelessWidget {
     return RepositoryProvider.value(
       value: _authenticationRepository,
       child: BlocProvider(
-        create: (_) =>
-            AuthBloc(authenticationRepository: _authenticationRepository),
-        child: MaterialApp(
-          title: 'Flutter Todos',
-          darkTheme: darkTheme,
-          theme: lightTheme,
-          home: const AuthScreen(),
-        ),
-      ),
+          create: (_) =>
+              AuthBloc(authenticationRepository: _authenticationRepository),
+          child: const App()),
     );
+  }
+}
+
+class App extends StatelessWidget {
+  const App({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'Flutter Todos',
+        darkTheme: darkTheme,
+        theme: lightTheme,
+        onGenerateRoute: RouteGenerator.generateRoute,
+        initialRoute: BlocProvider.of<AuthBloc>(context).state.status ==
+                AppStatus.unauthenticated
+            ? RouteNames.loginScreen
+            : RouteNames.loginScreen);
   }
 }

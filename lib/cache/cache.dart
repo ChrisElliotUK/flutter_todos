@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// A class that provides access to the shared preferences.
-class CacheClient {
+class Cache {
   /// The shared preferences instance.
   static Future<SharedPreferences> getInstance() async {
     return SharedPreferences.getInstance();
@@ -88,5 +88,28 @@ class CacheClient {
       {required String key, required dynamic value}) async {
     final SharedPreferences prefs = await getInstance();
     return prefs.setString(key, json.encode(value));
+  }
+}
+
+/// {@template cache_client}
+/// An in-memory cache client.
+/// {@endtemplate}
+class CacheClient {
+  /// {@macro cache_client}
+  CacheClient() : _cache = <String, Object>{};
+
+  final Map<String, Object> _cache;
+
+  /// Writes the provide [key], [value] pair to the in-memory cache.
+  void write<T extends Object>({required String key, required T value}) {
+    _cache[key] = value;
+  }
+
+  /// Looks up the value for the provided [key].
+  /// Defaults to `null` if no value exists for the provided key.
+  T? read<T extends Object>({required String key}) {
+    final value = _cache[key];
+    if (value is T) return value;
+    return null;
   }
 }

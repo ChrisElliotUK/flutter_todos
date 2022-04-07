@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:firebase_auth_platform_interface/firebase_auth_platform_interface.dart';
@@ -155,11 +154,14 @@ class LogOutFailure implements Exception {}
 class AuthenticationRepository {
   /// {@macro authentication_repository}
   AuthenticationRepository({
+    CacheClient? cache,
     firebase_auth.FirebaseAuth? firebaseAuth,
     GoogleSignIn? googleSignIn,
-  })  : _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
+  })  : _cache = cache ?? CacheClient(),
+        _firebaseAuth = firebaseAuth ?? firebase_auth.FirebaseAuth.instance,
         _googleSignIn = googleSignIn ?? GoogleSignIn.standard();
 
+  final CacheClient _cache;
   final firebase_auth.FirebaseAuth _firebaseAuth;
   final GoogleSignIn _googleSignIn;
 
@@ -181,7 +183,7 @@ class AuthenticationRepository {
   Stream<User> get user {
     return _firebaseAuth.authStateChanges().map((firebaseUser) {
       final user = firebaseUser == null ? User.empty : firebaseUser.toUser;
-      CacheClient.setString(key: userCacheKey, value: json.encode(user));
+      _cache.write(key: userCacheKey, value: user);
       return user;
     });
   }
@@ -189,14 +191,7 @@ class AuthenticationRepository {
   /// Returns the current cached user.
   /// Defaults to [User.empty] if there is no cached user.
   User get currentUser {
-    final String? cachedUser =
-        CacheClient.getString(key: userCacheKey) as String?;
-    if (cachedUser == null) {
-      return User.empty;
-    } else {
-      final User user = json.decode(cachedUser);
-      return user;
-    }
+    return _cache.read<User>(key: userCacheKey) ?? User.empty;
   }
 
   /// Creates a new user with the provided [email] and [password].
