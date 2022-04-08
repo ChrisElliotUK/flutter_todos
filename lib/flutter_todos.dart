@@ -1,11 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_todos/common/routes/route_generator.dart';
-import 'package:flutter_todos/common/routes/route_names.dart';
-import 'package:flutter_todos/common/theme/app_theme.dart';
-import 'package:flutter_todos/features/auth/bloc/auth_bloc/auth_bloc.dart';
-import 'package:flutter_todos/features/auth/repository/auth_repository.dart';
-import 'package:flutter_todos/features/auth/screens/login_screen.dart';
 
 class FlutterTodos extends StatelessWidget {
   const FlutterTodos({

@@ -41,14 +41,18 @@ dependencies:
   # ------------------------------------------------------------
   # State management
   flutter_bloc: ^8.0.1
-  # Forms
-  formz: ^0.4.1
-  # Internet Connection
+  # Internet Connection api
   connectivity_plus: ^2.2.1
-  # Equality
+  # Value Equality
   equatable: ^2.0.3
   # Caching
   shared_preferences: ^2.0.13
+  # Service locator
+  get_it: ^7.2.0
+  # Functional programming
+  dartz: ^0.10.1
+  #load env
+  flutter_dotenv: ^5.0.2
 
   # ------------------------------------------------------------
   # Firebase Integration
@@ -57,9 +61,21 @@ dependencies:
   firebase_auth: ^3.3.12
   # Cloud Firestore
   cloud_firestore: ^3.1.11
-  # Firebase Cors
+  # Firebase Core
   firebase_core: ^1.14.0
+
+
+  # --------------------------------------------------
+  # Auth
+  # --------------------------------------------------
+  # Sign in with google
   google_sign_in: ^5.2.4
+  # Sign in with apple
+  sign_in_with_apple: ^3.3.0
+  # Cryptographic hashing functions
+  crypto: ^3.0.1
+  # form validation
+  formz: ^0.4.1
 
 dev_dependencies:
   flutter_test:
