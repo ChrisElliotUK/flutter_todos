@@ -1,6 +1,6 @@
 import 'package:flutter_todos/core/cache/cache.dart';
 import 'package:flutter_todos/features/auth/data/models/user_model.dart';
-import 'package:flutter_todos/features/auth/domain/entities/user.dart';
+import 'package:flutter_todos/features/auth/domain/entities/app_user.dart';
 
 abstract class AppUserLocalDataSource {
   /// Throws a [ServerException] for all error codes.
@@ -9,7 +9,7 @@ abstract class AppUserLocalDataSource {
   Future<bool> cacheUser(AppUserModel userModel);
 }
 
-class UserLocalDataSourceImpl implements AppUserLocalDataSource {
+class AppUserLocalDataSourceImpl implements AppUserLocalDataSource {
   @override
   bool checkIfUserExists() {
     return CacheClient.contains(APP_USER);
